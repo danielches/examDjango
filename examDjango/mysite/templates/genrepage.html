@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ genre_name }}</title>
+    <link rel="stylesheet" href="{% static 'css/genrepage.css' %}">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1 class="logo">Liib</h1>
+            <nav>
+                <ul class="nav-links">
+                    <li><a href="/home/">Home</a></li>
+                    <li><a href="/categories/">Categories</a></li>
+                    <li><a href="/bestsellers/">Bestsellers</a></li>
+                    <li><a href="/contact/">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <section class="books-by-genre">
+            <div class="container">
+                <h1>Books in Genre: {{ genre_name }}</h1>
+                <div class="book-grid">
+                    {% for book in books %}
+                    <div class="book-item">
+                        <img src="{{ book.photo.url }}" alt="{{ book.title }}">
+                        <h3>{{ book.title }}</h3>
+                        <p><strong>Author:</strong> {{ book.author }}</p>
+                        <p><strong>Price:</strong> ${{ book.price }}</p>
+                        <a href="/book/{{ book.id }}/" class="btn">View Details</a>
+                    </div>
+                    {% empty %}
+                    <p>No books found in this genre.</p>
+                    {% endfor %}
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 Liib - Life is in books.</p>
+        </div>
+    </footer>
+</body>
+</html>

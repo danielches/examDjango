@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bookstore Homepage</title>
+    <link rel="stylesheet" href="{% static 'css/homepagestyle.css' %}">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1 class="logo">Liib</h1>
+            <nav>
+                 <ul class="nav-links">
+                    <li><a href="#">Home</a></li>
+                    <li class="dropdown">
+                        <a href="#" class="dropbtn">Genres</a>
+                        <ul class="dropdown-content">
+                            {% for genre in genrelist %}
+                            <li><a href="{% url 'genre' genre.code %}">{{ genre.name }}</a></li>
+                            {% endfor %}
+                        </ul>
+                    </li>
+                    <li><a href="#">Bestsellers</a></li>
+                    <li><a href="#">Contact</a></li>
+                    <li><a href="#">Cart</a></li>
+                    <li><a href="/users/login">Login</a></li>
+
+                </ul>
+            </nav>
+            <div class="search-bar">
+                <input type="text" placeholder="Search for books...">
+                <button>Search</button>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <section class="hero">
+            <div class="hero-text">
+                <h2>Find Your Next Favorite Book</h2>
+                <p>Discover thousands of books across all genres, handpicked for you.</p>
+                <a href="#" class="btn">Shop Now</a>
+            </div>
+        </section>
+
+        <section class="popular-books">
+            <h2>Popular Books</h2>
+            <div class="book-grid">
+                {% for book in booklist %}
+                <a href="{% url 'book' book.id %}" class="fill-div">
+                    <div class="book-item">
+                        <img src="{{ book.photo.url }}" alt="Book 1">
+                        <h3>{{ book.title }}</h3>
+                        <p>Автор: {{ book.author }}</p>
+                    </div>
+                </a>
+                {% endfor %}
+            </div>
+        </section>
+
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 Liib - Life is in books.</p>
+            <div class="social-links">
+                <a href="#">Facebook</a>
+                <a href="#">Twitter</a>
+                <a href="#">Instagram</a>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

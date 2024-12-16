@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ book.title }}</title>
+    <link rel="stylesheet" href="{% static 'css/bookpagestyle.css' %}">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1 class="logo">Liib</h1>
+            <nav>
+                <ul class="nav-links">
+                    <li><a href="/home/">Home</a></li>
+                    <li><a href="/categories/">Categories</a></li>
+                    <li><a href="/bestsellers/">Bestsellers</a></li>
+                    <li><a href="/contact/">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <section class="book-detail">
+            <div class="container">
+                <div class="book-detail-grid">
+                    <div class="book-image">
+                        <img src="{{ book.photo.url }}" alt="{{ book.title }}">
+                    </div>
+                    <div class="book-info">
+                        <h1>{{ book.title }}</h1>
+                        <p><strong>Author:</strong> {{ book.author }}</p>
+                        <p><strong>Genre:</strong> {{ book.get_genre_display }}</p>
+                        <p><strong>Description:</strong></p>
+                        <p>{{ book.description }}</p>
+                        <p><strong>Price:</strong> ${{ book.price }}</p>
+                        <button class="btn">Add to Cart</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 Liib - Life is in books.</p>
+            <div class="social-links">
+                <a href="#">Facebook</a>
+                <a href="#">Twitter</a>
+                <a href="#">Instagram</a>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
