@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block head %}
+    <title>Your Cart</title>
+{% endblock %}
+{% block content %}
+<div class="container">
+<h1>Your Cart</h1>
+<ul>
+  {% for item in cart.items.all %}
+    <li>
+      {{ item.book.title }} - {{ item.quantity }} x ${{ item.book.price }}
+      = ${{ item.total_price }}
+      <a href="{% url 'remove_from_cart' item.id %}">Remove</a>
+    </li>
+  {% endfor %}
+</ul>
+<p>Total Price: ${{ cart.total_price }}</p>
+</div>
+{% endblock %}

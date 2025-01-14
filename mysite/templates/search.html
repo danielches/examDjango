@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block head %}
+    <title>Search for: {{ query }}</title>
+{% endblock %}
+{% block content %}
+<section class="books-by-genre">
+            <div class="container">
+                <h1>Search for: {{ query }}</h1>
+                <div class="book-grid">
+                    {% for book in books %}
+                    <div class="book-item">
+                        <img src="{{ book.photo.url }}" alt="{{ book.title }}">
+                        <h3>{{ book.title }}</h3>
+                        <p><strong>Author:</strong> {{ book.author }}</p>
+                        <p><strong>Price:</strong> ${{ book.price }}</p>
+                        <a href="/book/{{ book.id }}/" class="btn">View Details</a>
+                    </div>
+                    {% empty %}
+                    <p>No books found.</p>
+                    {% endfor %}
+                </div>
+            </div>
+        </section>
+{% endblock %}
+

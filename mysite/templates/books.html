@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+
+{% block head %}
+    <title>{{ title }}</title>
+{% endblock %}
+
+{% block content %}
+<section class="books-by-genre">
+    <div class="container">
+        <h1>{{ title }}</h1>
+        <div class="book-grid">
+            {% for book in books %} <!-- 'books' contains the paginated items -->
+            <div class="book-item">
+                <img src="{{ book.photo.url }}" alt="{{ book.title }}">
+                <h3>{{ book.title }}</h3>
+                <p><strong>Author:</strong> {{ book.author }}</p>
+                <p><strong>Price:</strong> ${{ book.price }}</p>
+                <a href="{% url 'book' book.id %}" class="btn">View Details</a>
+            </div>
+            {% empty %}
+            <p>No books found.</p>
+            {% endfor %}
+        </div>
+
+        <div class="pagination">
+            {% if books.has_previous %}
+                <a href="?page={{ books.previous_page_number }}" class="btn">Previous</a>
+            {% endif %}
+
+            {% for num in books.paginator.page_range %}
+                {% if books.number == num %}
+                    <span class="current-page">{{ num }}</span>
+                {% elif num > books.number|add:'-2' and num < books.number|add:'2' %}
+                    <a href="?page={{ num }}" class="btn">{{ num }}</a>
+                {% elif num == 1 or num == books.paginator.num_pages %}
+                    <a href="?page={{ num }}" class="btn">{{ num }}</a>
+                {% elif num == books.number|add:'-3' or num == books.number|add:'3' %}
+                    <span class="ellipsis">...</span>
+                {% endif %}
+            {% endfor %}
+
+            {% if books.has_next %}
+                <a href="?page={{ books.next_page_number }}" class="btn">Next</a>
+            {% endif %}
+        </div>
+    </div>
+</section>
+{% endblock %}
